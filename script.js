@@ -3,10 +3,30 @@ let formattedCode = codeToCrack.toString().padStart(3, '0');
 let codeToCrackBoxes = document.getElementsByClassName('box');
 let indexIndice = 0;
 
-function autoSelectInput() {
-    let inputs = document.querySelectorAll('input[type="number"]');
+
+let number1 = document.getElementById('number1');
+number1.focus();
+let number2 = document.getElementById('number2');
+let number3 = document.getElementById('number3');
+number1.addEventListener("keyup", autoSelectNextInput);
+number1.addEventListener("click", function () { index = 0 });
+number2.addEventListener("keyup", autoSelectNextInput);
+let index = 0;
+function autoSelectNextInput() {
+
+
+    if (index == 0) {
+        number2.focus();
+        index++;
+    }
+    else {
+        number3.focus();
+
+    }
 
 }
+
+
 
 function refresh() {
     window.location = "index.html";
@@ -14,6 +34,7 @@ function refresh() {
 
 function checkCode() {
     console.log("checkcode")
+    index = 0;
     if (document.getElementById('number1').value == formattedCode.charAt(0) &&
         document.getElementById('number2').value == formattedCode.charAt(1) &&
         document.getElementById('number3').value == formattedCode.charAt(2)) {
@@ -25,7 +46,10 @@ function checkCode() {
 
     }
     else {
-        console.log("raté");
+        number1.value = "";
+        number2.value = "";
+        number3.value = "";
+        number1.focus();
     }
 
 
@@ -34,7 +58,17 @@ function checkCode() {
 
 document.getElementById('number1').addEventListener('input', function () {
     if (this.value.length > 1) {
-        this.value = this.value.slice(0, 1);
+        this.value = this.value.slice(-1);
+    }
+});
+document.getElementById('number2').addEventListener('input', function () {
+    if (this.value.length > 1) {
+        this.value = this.value.slice(-1);
+    }
+});
+document.getElementById('number3').addEventListener('input', function () {
+    if (this.value.length > 1) {
+        this.value = this.value.slice(-1);
     }
 });
 
